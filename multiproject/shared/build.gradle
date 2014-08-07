@@ -1,5 +1,0 @@
-version '2.1'
-dependencies {
-    compile 'junit:junit:4.1'
-    compile project(':model')
-}

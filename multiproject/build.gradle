@@ -73,33 +73,35 @@ subprojects {
 group 'com.example'
 version '1.0'
 
-//project(':app') {
-//    version '1.1'
-//    dependencies {
-//        compile 'junit:junit'
-//        compile project(':shared')
-//        compile project(':common')
-//    }
-//}
-//
-//project(':common') {
-//    version '2.1'
-//    dependencies {
-//        compile 'com.example:model'
-//    }
-//}
-//
-//project(':shared') {
-//    version '2.1'
-//    dependencies {
-//        compile 'junit:junit:4.1'
-//        compile project(':model')
-//    }
-//}
-//
-//project(':model') {
-//    version '3.1'
-//    dependencies {
-//        compile 'junit:junit:3.8'
-//    }
-//}
+project(':app') {
+    version '1.1'
+    dependencies {
+        compile 'junit:junit'
+        compile project(':common')
+        compile project(':shared')
+    }
+}
+
+project(':shared') {
+    version '2.1'
+    dependencies {
+        compile 'junit:junit:4.1'
+        compile project(':model')
+    }
+}
+
+project(':common') {
+    version '2.1'
+    dependencies {
+        compile 'com.example:model'
+    }
+}
+
+
+
+project(':model') {
+    version '3.1'
+    dependencies {
+        compile 'junit:junit:3.8'
+    }
+}

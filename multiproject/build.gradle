@@ -1,0 +1,105 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url 'http://repo.spring.io/plugins-snapshot'}
+    }
+
+    dependencies {
+        classpath 'com.example.parent:example-parent-plugin:1.0.0'
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'common-build'
+    apply plugin: 'maven-publish'
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencyManagement {
+        dependencies {
+            'xml-apis:xml-apis' '1.4.01'
+        }
+    }
+
+    group 'com.example'
+
+    publishing {
+
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+
+                artifact sourcesJar {
+                    classifier "sources"
+                }
+
+                artifact javadocJar {
+                    classifier "javadoc"
+                }
+            }
+        }
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    artifacts {
+        archives sourcesJar
+        archives javadocJar
+    }
+}
+
+group 'com.example'
+version '1.0'
+
+//project(':app') {
+//    version '1.1'
+//    dependencies {
+//        compile 'junit:junit'
+//        compile project(':shared')
+//        compile project(':common')
+//    }
+//}
+//
+//project(':common') {
+//    version '2.1'
+//    dependencies {
+//        compile 'com.example:model'
+//    }
+//}
+//
+//project(':shared') {
+//    version '2.1'
+//    dependencies {
+//        compile 'junit:junit:4.1'
+//        compile project(':model')
+//    }
+//}
+//
+//project(':model') {
+//    version '3.1'
+//    dependencies {
+//        compile 'junit:junit:3.8'
+//    }
+//}

@@ -1,0 +1,77 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: "idea"
+apply plugin: 'maven-publish'
+
+// configure to download sources for IntelliJ
+idea {
+    project {
+        jdkName = '1.7'
+        languageLevel = '1.7'
+    }
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+
+group = 'com.example.parent'
+version = '1.0.0'
+archivesBaseName = 'common-build-plugin'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url 'http://repo.spring.io/plugins-snapshot' }
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+
+    compile 'io.spring.gradle:dependency-management-plugin:0.2.0.BUILD-SNAPSHOT'
+}
+
+publishing {
+
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            artifact sourcesJar {
+                classifier "sources"
+            }
+
+            artifact javadocJar {
+                classifier "javadoc"
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+task wrapper(type: Wrapper) {
+    description = "Gradle wrapper, helps standardize build on same version"
+    gradleVersion = '1.12'
+}

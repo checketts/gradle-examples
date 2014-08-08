@@ -17,9 +17,9 @@ class CommonBuildPlugin implements Plugin<Project> {
             dependencyManagement {
                 dependencies {
                     //Internal Libs
-                    'com.example:shared'    '2.1'
-                    'com.example:common'    '2.1'
-                    'com.example:model'     '3.1'
+                    'com.example.shared:shared'    '2.1'
+                    'com.example.common:common'    '2.1'
+                    'com.example.model:model'     '3.1'
 
                     //3rd Party libs
                     'junit:junit'           '4.11'

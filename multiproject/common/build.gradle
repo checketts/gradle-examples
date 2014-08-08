@@ -1,4 +1,5 @@
+group 'com.example.common'
 version '2.1'
 dependencies {
-    compile 'com.example:model'
+    compile project(':model')
 }

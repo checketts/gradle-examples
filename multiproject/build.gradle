@@ -20,8 +20,8 @@ repositories {
 }
 
 subprojects {
-    apply plugin: 'java'
     apply plugin: 'common-build'
+    apply plugin: 'java'
     apply plugin: 'maven-publish'
 
     repositories {
